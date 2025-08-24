@@ -1,0 +1,15 @@
+Metadata-Version: 2.4
+Name: nb_refusal
+Version: 0.1.0
+Summary: An experiment to find the refusal direction in language models.
+Requires-Python: >=3.11
+Requires-Dist: torch
+Requires-Dist: transformers
+Requires-Dist: accelerate
+Requires-Dist: bitsandbytes
+Requires-Dist: ipykernel
+Requires-Dist: ipywidgets
+Requires-Dist: matplotlib
+Requires-Dist: tiktoken
+Requires-Dist: transformer-lens
+Requires-Dist: nnsight

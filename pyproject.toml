@@ -1,0 +1,22 @@
+[project]
+name = "nb_refusal"
+version = "0.1.0"
+description = "An experiment to find the refusal direction in language models."
+dependencies = [
+    "torch",
+    "transformers",
+    "accelerate",
+    "bitsandbytes",
+    "ipykernel", "ipywidgets", "matplotlib", "tiktoken",
+    "transformer-lens",
+    "nnsight",
+]
+requires-python = ">=3.11" # Added to fix the warning you saw
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+# --- ADD THIS SECTION ---
+[tool.setuptools.packages.find]
+where = ["src"]
