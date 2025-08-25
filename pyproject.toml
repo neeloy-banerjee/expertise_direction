@@ -6,8 +6,8 @@ dependencies = [
     "torch",
     "transformers",
     "accelerate",
-    "bitsandbytes",
-    "ipykernel", "ipywidgets", "matplotlib", "tiktoken",
+    "bitsandbytes", "scipy", "lm-eval", "datasets",
+    "ipykernel", "ipywidgets", "matplotlib", "tiktoken","python-dotenv",
     "transformer-lens",
     "nnsight",
 ]

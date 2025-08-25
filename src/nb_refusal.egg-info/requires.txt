@@ -2,9 +2,13 @@ torch
 transformers
 accelerate
 bitsandbytes
+scipy
+lm-eval
+datasets
 ipykernel
 ipywidgets
 matplotlib
 tiktoken
+python-dotenv
 transformer-lens
 nnsight
