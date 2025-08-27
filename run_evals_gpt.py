@@ -163,10 +163,11 @@ def main():
     pprint(expert_train[:2]); pprint(non_expert_train[:2])
 
     # Choose layers & coeffs
-    layers = [15, 28]
+    layers = [28, 15]
     #coeffs = [5, 2, 1, 0.5, 0, -0.5, -1, -2, -5]
-    coeffs = [5, 0]
-    tasks  = ["mmlu_philosophy", "mmlu_college_mathematics", "truthfulqa"]
+    #coeffs = [-0.4, -0.3, -0.2, -0.1, 0.1, 0.2, 0.3, 0.4]
+    coeffs = [-0.5, 0.5]
+    tasks  = ["truthfulqa"]
     #tasks  = ["mmlu_college_mathematics", "mmlu_philosophy"]
 
     # Compute expertise directions for one reference layer (example: 28)
@@ -213,27 +214,29 @@ def main():
             steer_hook_fn = make_expertise_steer_hook(exp_dir, float(coeff) * float(avg_resid_norm))
             batch_size = 1
             hh = HookedModelWrapper(hooked_model, tokenizer, hook_point, steer_hook_fn, batch_size=batch_size)
-
+            t_before = time.time()
             results = simple_evaluate(
                 model=hh,
                 tasks=tasks,
                 batch_size=batch_size,     # match wrapper
                 limit=100         # sanity: remove for full runs
             )
+            t_after = time.time()
+            print(f"Time taken for this eval {t_after - t_before}")
             all_results[(layer, coeff)] = results
 
             # Incremental, atomic save
-            tmp = "results.pkl.tmp"
+            tmp = "some_truth_results.pkl.tmp"
             with open(tmp, "wb") as f:
                 import pickle
                 pickle.dump(all_results, f, protocol=pickle.HIGHEST_PROTOCOL)
                 f.flush(); os.fsync(f.fileno())
-            os.replace(tmp, "results.pkl")
+            os.replace(tmp, "some_truth_results.pkl")
     t2 = time.time()
     print("Finished with evals and saved to disk")
     print(f"Time taken in evals: {t2 - t_layer} seconds")
     print(f"Total time taken: {t2 - t1} seconds")
-
+# 11 mins for 1 eval on truthfulqa
 if __name__ == "__main__":
     main()
 
